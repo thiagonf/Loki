@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from pydantic import UUID4
 
+from jsons.service_example.response_example import GET_EXAMPLE_SERVICE_JSON
+from tags import tags_metadata
+
 
 description = """
 You know when you have no way out to solve a problem, one of the best
@@ -29,3 +32,11 @@ app = FastAPI(
     },
     openapi_tags=tags_metadata
 )
+
+
+@app.get("/service-example/v1/user/{id}",
+         tags=["Service Example"])
+def get_client(id: UUID4):
+    mock_response = GET_EXAMPLE_SERVICE_JSON
+    mock_response["id"] = id
+    return mock_response
