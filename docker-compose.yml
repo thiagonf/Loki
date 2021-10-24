@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  fake_billing:
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.7
+    volumes:
+      - type: bind
+        source: ./app/
+        target: /app/
+    ports:
+      - "81:80"
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 80 --reload"
